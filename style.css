@@ -1,0 +1,80 @@
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
+#background {
+  background: linear-gradient(
+      217deg,
+      rgba(255, 0, 0, 0.8),
+      rgba(255, 0, 0, 0) 70.71%
+    ),
+    linear-gradient(127deg, rgba(0, 255, 0, 0.8), rgba(0, 255, 0, 0) 70.71%),
+    linear-gradient(336deg, rgba(0, 0, 255, 0.8), rgba(0, 0, 255, 0) 70.71%);
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+.calc-container {
+  margin: 15vh auto;
+
+  height: 600px;
+  width: 400px;
+  background-color: rgba(17, 17, 18, 0.178);
+  border: 1px solid rgba(0, 0, 139, 0.227);
+  border-radius: 10px;
+}
+
+.display {
+  border: 1px solid rgb(94, 94, 94);
+  width: 335px;
+  height: 100px;
+  background-color: white;
+  padding: 10px 20px;
+  margin-left: 10px;
+  margin-top: 10px;
+  text-align: right;
+  border-radius: 10px;
+  border: 1px solid black;
+}
+
+#lastOperationScreen {
+  font-size: 20px;
+}
+
+#currentOperationScreen {
+  font-size: 40px;
+}
+
+.row-container {
+  padding: 10px;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.btn-lrg {
+  width: 47%;
+  height: 10%;
+  font-size: 2em;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.btn-sml {
+  width: 20%;
+  height: 10%;
+  font-size: 2em;
+  padding: 20px;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+button:active {
+  background-color: rgba(228, 106, 44, 0.452);
+}
