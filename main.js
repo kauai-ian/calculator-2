@@ -2,6 +2,7 @@
 
 let firstArg = "";
 let secondArg = "";
+let operator = null;
 
 // a placeholder that store the operator
 let currentOperation = null;
@@ -64,7 +65,6 @@ function del() {
 
 // create a function to append a decimal point
 function appendPoint() {
-  if (shouldResetScreen) resetScreen();
   if (currentOperationScreen.textContent == null) {
     currentOperationScreen.textContent = "0.";
   } else currentOperationScreen.textContent += ".";
@@ -88,31 +88,27 @@ function setOperation(operator) {
 //a function that takes the second number and sets it equal to the current display content.
 // sets the current display content equal to the function operate with the 3 string parameters.
 // sets the previous display content equal to the live code of the 3 inputs.
-// wont accept empty values.
 function evaluate() {
-  if (currentOperation === null || shouldResetScreen);
-  secondArg = currentOperationScreen.textContent;
+  if (currentOperationScreen !== "")
+    secondArg = currentOperationScreen.textContent;
   currentOperationScreen.textContent = operate(
     firstArg,
     currentOperation,
     secondArg
   );
   lastOperationScreen.textContent = `${firstArg} ${currentOperation} ${secondArg} =`;
-  currentOperation = null;
 }
 
 function operate(a, operator, b) {
   a = Number(a);
   b = Number(b);
-  console.log(a, operator, b);
-  if (operator === "+") {
+  if (operator == "+") {
     return a + b;
-  } else if (operator === "-") {
+  } else if (operator == "-") {
     return a - b;
-  } else if (operator === "x") {
+  } else if (operator == "x") {
     return a * b;
-  } else if (operator === "÷") {
-    if (b === 0) return null;
+  } else if (operator == "÷") {
     return a / b;
   }
 }
