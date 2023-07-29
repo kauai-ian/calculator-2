@@ -43,11 +43,11 @@ body {
   border: 1px solid black;
 }
 
-#lastOperationScreen {
+#total {
   font-size: 20px;
 }
 
-#currentOperationScreen {
+#current {
   font-size: 40px;
 }
 
@@ -58,15 +58,18 @@ body {
   justify-content: space-between;
   align-items: center;
 }
-.btn-lrg {
+
+#clear,
+#del {
   width: 47%;
   height: 10%;
   font-size: 2em;
+  padding: 5px;
   border: 1px solid black;
   border-radius: 10px;
 }
 
-.btn-sml {
+.btn {
   width: 20%;
   height: 10%;
   font-size: 2em;

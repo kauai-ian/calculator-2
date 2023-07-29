@@ -1,118 +1,99 @@
-// create variables for numbers and operator
-
+// create variables for numbers and operator, a placeholder that store the operator
 let firstArg = "";
 let secondArg = "";
-
-// a placeholder that store the operator
 let currentOperation = null;
 
 // reset the display screen
 let shouldResetScreen = false;
 
-// html buttons are made to be variables and attach a query selector
-const numberBtn = document.querySelectorAll("[data-number]");
-const operatorBtn = document.querySelectorAll("[data-operator]");
-const pointBtn = document.getElementById("pointBtn");
-const equalsBtn = document.getElementById("equalsBtn");
-const deleteBtn = document.getElementById("deleteBtn");
-const clearBtn = document.getElementById("clearBtn");
-const lastOperationScreen = document.getElementById("lastOperationScreen");
-const currentOperationScreen = document.getElementById(
-  "currentOperationScreen"
-);
-
-// event listener click calls the functions in the calculator
-clearBtn.addEventListener("click", clearScreen);
-deleteBtn.addEventListener("click", del);
-pointBtn.addEventListener("click", appendPoint);
-equalsBtn.addEventListener("click", evaluate);
-numberBtn.forEach((button) => {
-  button.addEventListener("click", () => appendNumber(button.textContent));
-});
-operatorBtn.forEach((button) => {
-  button.addEventListener("click", () => setOperation(button.textContent));
-});
+// create the current display and a total display
+const total = document.getElementById("total");
+const current = document.getElementById("current");
 
 // create a function to remember the last number inputted
-function appendNumber(number) {
-  if (currentOperationScreen.textContent === "0" || shouldResetScreen)
-    resetScreen();
-  currentOperationScreen.textContent += number;
+function appendNumber() {
+  current.value += firstArg;
+  total.value += secondArg;
 }
 
 // create a clear function to delete all displayed units by setting an empty string if the values on the output are removed.
 function clearScreen() {
-  currentOperationScreen.textContent = "0";
-  lastOperationScreen.textContent = "";
   firstArg = "";
   secondArg = "";
   currentOperation = null;
 }
 
 function resetScreen() {
-  currentOperationScreen.textContent = "";
+  firstArg = "";
   shouldResetScreen = false;
 }
 
 // create a delete function to delete the last number inputted if there is a previous input
 function del() {
-  currentOperationScreen.textContent = currentOperationScreen.textContent.slice(
-    0,
-    -1
-  );
+  firstArg = firstArg.slice(0, -1);
 }
 
 // create a function to append a decimal point
 function appendPoint() {
   if (shouldResetScreen) resetScreen();
-  if (currentOperationScreen.textContent == null) {
-    currentOperationScreen.textContent = "0.";
-  } else currentOperationScreen.textContent += ".";
+  if (firstArg == null) {
+    firstArg = "0.";
+  } else firstArg += ".";
 }
 
-// create a function to update the display.
-function updateDisplay(buttonContent) {
-  currentOperationScreen.textContent = buttonContent;
-}
-
-// if the number is not input then cannot set an operator, so return.
-// create a function that will take the current text display and input an operator between it
-function setOperation(operator) {
-  if (currentOperation !== null) evaluate();
-  firstArg = currentOperationScreen.textContent;
+// create a function that will take the current text display and input an operator between it.  if the number is not input then cannot set an operator, so return.
+function operation(operator) {
+  if (currentOperation !== null) return;
+  firstArg = secondArg;
+  secondArg = "";
   currentOperation = operator;
-  lastOperationScreen.textContent = `${firstArg} ${currentOperation}`;
-  shouldResetScreen = true;
 }
 
-//a function that takes the second number and sets it equal to the current display content.
-// sets the current display content equal to the function operate with the 3 string parameters.
-// sets the previous display content equal to the live code of the 3 inputs.
-// wont accept empty values.
+//a function that takes the second number and sets it equal to the current display content. Sets the current display content equal to the function operate with the 3 string parameters. Sets the previous display content equal to the live code of the 3 inputs. wont accept empty values.
 function evaluate() {
   if (currentOperation === null || shouldResetScreen);
-  secondArg = currentOperationScreen.textContent;
-  currentOperationScreen.textContent = operate(
-    firstArg,
-    currentOperation,
-    secondArg
-  );
-  lastOperationScreen.textContent = `${firstArg} ${currentOperation} ${secondArg} =`;
+  if (firstArg) {
+    operation();
+  }
+  secondArg = `${currentOperation(+firstArg, +secondArg)}`;
+  firstArg = "";
   currentOperation = null;
 }
 
-function operate(a, operator, b) {
-  a = Number(a);
-  b = Number(b);
-  console.log(a, operator, b);
-  if (operator === "+") {
-    return a + b;
-  } else if (operator === "-") {
-    return a - b;
-  } else if (operator === "x") {
-    return a * b;
-  } else if (operator === "÷") {
-    if (b === 0) return null;
-    return a / b;
+function btnClick(evt) {
+  const btn = evt.target.dataset.btn;
+  if (!btn) return;
+
+  switch (btn) {
+    case "+":
+      return operation(a + b);
+    case "-":
+      return operation(a - b);
+    case "x":
+      return operation(a * b);
+    case "÷":
+      if (b === 0) return null;
+      return operation(a / b);
+    case "=":
+      return operation;
+    case "del":
+      return del;
+    case "clear":
+      return clearScreen;
+    case ".":
+      return appendPoint;
+    default:
+      secondArg += btn;
+      return null;
   }
+  appendNumber();
+}
+
+// event listener click on any button calls the functions in the calculator
+document
+  .getElementsByClassName("btn")
+  .forEach((btn) => btn.addEventListener("click", woof()));
+
+function woof() {
+  console.log("woof");
 }
